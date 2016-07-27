@@ -10,7 +10,6 @@ class Page
 {
     private $total;     //总记录
     private $pagesize;  //每页显示多少条
-    private $limit;     //limit
     private $page;      //当前页码
     private $pagenum;       //总页码
     private $url;       //地址
@@ -23,7 +22,6 @@ class Page
         $this->pagesize = $_pagesize;
         $this->pagenum = ceil($this->total / $this->pagesize);
         $this->page = $this->setPage();
-        $this->limit = "LIMIT " . ($this->page - 1) * $this->pagesize . ",$this->pagesize";
         $this->url = $this->setUrl();
         $this->bothnum = 2;
     }
@@ -38,10 +36,10 @@ class Page
     private function setPage()
     {
         $pagenow = !empty($_GET['page']) && $_GET['page'] > 0 ? $_GET['page'] : 1;
-        if ($pagenow > $this->pagenum) {
+        if ($pagenow > $this->pagenum)
             return $this->pagenum;
-        }
-        return $pagenow;
+        else
+            return $pagenow;
     }
 
     //获取地址
@@ -57,8 +55,9 @@ class Page
             $_url .= '?';
         }
         return $_url;
-    }   //数字目录
+    }
 
+    //数字目录
     private function pageList()
     {
         $_pagelist = '';
@@ -76,7 +75,7 @@ class Page
         return $_pagelist;
     }
 
-    //首页  http://ini.iteye.com/
+    //首页
     private function first()
     {
         if ($this->page > $this->bothnum + 1) {
